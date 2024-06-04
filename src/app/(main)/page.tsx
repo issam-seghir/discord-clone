@@ -1,5 +1,5 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-
+import { UserDetails } from "@/components/user-details";
 
 export default function Home() {
 	return (
@@ -14,13 +14,6 @@ export default function Home() {
 								Logo
 							</div>
 							<div className="flex items-center gap-2">
-								{/* <OrganizationSwitcher
-									appearance={{
-										elements: {
-											organizationPreviewAvatarBox: "size-6",
-										},
-									}}
-								/> */}
 								<UserButton
 									afterSignOutUrl="/"
 									appearance={{
@@ -31,10 +24,7 @@ export default function Home() {
 								/>
 							</div>
 						</header>
-						{/* <UserDetails /> */}
-					</div>
-					<div className="pt-[3.5rem]">
-						{/* <CodeSwitcher /> */}
+						<UserDetails />
 					</div>
 				</div>
 			</main>
