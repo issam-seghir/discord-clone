@@ -14,6 +14,8 @@ import { z } from "zod";
 import { Form,FormControl,FormDescription ,FormField,FormItem,FormLabel,FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+
 
 export function InitialModel() {
 
@@ -49,7 +51,20 @@ export function InitialModel() {
 				<Form {...form}>
 					<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 						<div className="space-y-8 px-6">
-							<div className="flex items-center justify-center text-center">TODO: Image uploader</div>
+							<div className="flex items-center justify-center text-center">
+								<UploadButton
+									endpoint="serverImage"
+									onClientUploadComplete={(res) => {
+										// Do something with the response
+										console.log("Files: ", res);
+										alert("Upload Completed");
+									}}
+									onUploadError={(error: Error) => {
+										// Do something with the error.
+										alert(`ERROR! ${error.message}`);
+									}}
+								/>
+							</div>
 							<FormField
 								control={form.control}
 								name="name"
@@ -67,7 +82,7 @@ export function InitialModel() {
 												{...field}
 											/>
 										</FormControl>
-										<FormMessage/>
+										<FormMessage />
 									</FormItem>
 								)}
 							/>
