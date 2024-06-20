@@ -14,27 +14,27 @@ datasource db {
 }
 
 model Profile {
-  id        Int      @id @default(autoincrement())
-  userId    String   @unique
-  name      String
-  email     String   @db.Text
-  imageUrl  String?  @db.Text
-  servers   Server[]
-  members   Member[]
-  channels  Channel[]
-  messages   Message[]
+  id       String    @id @default(cuid())
+  userId   String    @unique
+  name     String
+  email    String    @db.Text
+  imageUrl String?   @db.Text
+  servers  Server[]
+  members  Member[]
+  channels Channel[]
+  messages Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Server {
-  id         Int     @id @default(autoincrement())
+  id         String    @id @default(cuid())
   name       String
-  imageUrl   String? @db.Text
-  inviteCode String  @db.Text
-  profileId  Int
-  profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  imageUrl   String?   @db.Text
+  inviteCode String    @db.Text
+  profileId  String
+  profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   members    Member[]
   channels   Channel[]
   messages   Message[]
@@ -46,13 +46,12 @@ model Server {
 }
 
 model Member {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(cuid())
   role      MemberRole @default(GUEST)
-  profileId Int
+  profileId String
   profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  serverId Int
-  server   Server     @relation(fields: [serverId], references: [id], onDelete: Cascade)
-
+  serverId  String
+  server    Server     @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -62,14 +61,14 @@ model Member {
 }
 
 model Channel {
-  id       Int     @id @default(autoincrement())
-  name     String
-  type     ChannelType @default(TEXT)
-  profileId Int
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  serverId Int
-  server   Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  messages Message[]
+  id        String      @id @default(cuid())
+  name      String
+  type      ChannelType @default(TEXT)
+  profileId String
+  profile   Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  serverId  String
+  server    Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  messages  Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -79,14 +78,14 @@ model Channel {
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
+  id        String  @id @default(cuid())
   content   String
-  profileId Int
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  serverId Int
-  server   Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  channelId Int
-  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  serverId  String
+  server    Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
