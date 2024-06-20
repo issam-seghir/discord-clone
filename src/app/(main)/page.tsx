@@ -2,10 +2,11 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { UserDetails } from "@/components/user-details";
 import { ModeToggle } from "@/components/mode-toggler";
 import { initProfile, getFirstServer } from "@/lib/query";
+import {InitialModel} from "@/components/modals/initial-model";
 export default async function Home() {
 	const profile = await initProfile();
 	console.log(profile);
-	
+
 	const server = await getFirstServer(profile.id);
 
 	return (
@@ -28,7 +29,7 @@ export default async function Home() {
 								/>
 							</div>
 						</header>
-						{!server && "Create A new server"}
+						{!server && <InitialModel/>}
 						<UserDetails />
 					</div>
 				</div>
