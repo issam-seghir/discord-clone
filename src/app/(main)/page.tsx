@@ -1,8 +1,13 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { UserDetails } from "@/components/user-details";
 import { ModeToggle } from "@/components/mode-toggler";
+import { initProfile, getFirstServer } from "@/lib/query";
+export default async function Home() {
+	const profile = await initProfile();
+	console.log(profile);
+	
+	const server = await getFirstServer(profile.id);
 
-export default function Home() {
 	return (
 		<>
 			<main className="max-w-[75rem] w-full mx-auto">
@@ -23,6 +28,7 @@ export default function Home() {
 								/>
 							</div>
 						</header>
+						{!server && "Create A new server"}
 						<UserDetails />
 					</div>
 				</div>
