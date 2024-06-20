@@ -1,8 +1,9 @@
+import "@/app/globals.css";
 import { ThemeProvider } from "@/contexts/theme-provider";
+import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import "@/app/globals.css";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="scroll-smooth" suppressHydrationWarning>
-			<body className={open_sans.className}>
+			<body className={cn(open_sans.className, "bg-white dark:bg-[#313338]")}>
 				<ClerkProvider
 					appearance={{
 						variables: { colorPrimary: "#000000" },
@@ -36,7 +37,13 @@ export default function RootLayout({
 						},
 					}}
 				>
-					<ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="discord-clone-theme" disableTransitionOnChange>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="dark"
+						enableSystem={false}
+						storageKey="discord-clone-theme"
+						disableTransitionOnChange
+					>
 						{children}
 					</ThemeProvider>
 				</ClerkProvider>

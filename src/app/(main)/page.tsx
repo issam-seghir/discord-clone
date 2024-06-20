@@ -1,5 +1,6 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { UserDetails } from "@/components/user-details";
+import { ModeToggle } from "@/components/mode-toggler";
 
 export default function Home() {
 	return (
@@ -9,9 +10,7 @@ export default function Home() {
 					<div>
 						<header className="flex items-center justify-between w-full h-16 gap-4">
 							<div className="flex gap-4">
-								Logo
-								<div aria-hidden className="w-px h-6 bg-[#C7C7C8]" />
-								Logo
+								<ModeToggle />
 							</div>
 							<div className="flex items-center gap-2">
 								<UserButton

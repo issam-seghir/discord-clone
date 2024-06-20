@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  name      String
+  email     String   @db.Text
+  imageUrl  String?  @db.Text
+  servers   Server[]
+  members   Member[]
+  channels  Channel[]
+  messages   Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id         Int     @id @default(autoincrement())
+  name       String
+  imageUrl   String? @db.Text
+  inviteCode String  @db.Text
+  profileId  Int
+  profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  members    Member[]
+  channels   Channel[]
+  messages   Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+}
+
+model Member {
+  id        Int        @id @default(autoincrement())
+  role      MemberRole @default(GUEST)
+  profileId Int
+  profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  serverId Int
+  server   Server     @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([serverId])
+}
+
+model Channel {
+  id       Int     @id @default(autoincrement())
+  name     String
+  type     ChannelType @default(TEXT)
+  profileId Int
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  serverId Int
+  server   Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([serverId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  profileId Int
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  serverId Int
+  server   Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  channelId Int
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([channelId])
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+enum MemberRole {
+  MODERATOR
+  GUEST
+  ADMIN
+}
