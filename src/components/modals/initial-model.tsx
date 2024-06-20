@@ -49,29 +49,35 @@ export function InitialModel() {
 				<Form {...form}>
 					<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 						<div className="space-y-8 px-6">
-							<div className="flex items-center justify-center text-center">TODO: Image uploader
+							<div className="flex items-center justify-center text-center">TODO: Image uploader</div>
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+											Server name
+										</FormLabel>
 
-							</div>
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Server name</FormLabel>
-
-									<FormControl>
-										<Input disabled={isLoading} className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" placeholder="Enter server name" {...field}/>
-									</FormControl>
-								</FormItem>
-							)}
-						/>
-						{/* <Button type="submit" isLoading={isLoading} className="w-full mt-4">Create server</Button> */}
-									</div>
-									<DialogFooter className="bg-gray-100 px-6 py-4">
-										<Button type="submit"
-										variant="primary"
-										disabled={isLoading} className="w-full">Create server</Button>
-									</DialogFooter>
+										<FormControl>
+											<Input
+												disabled={isLoading}
+												className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+												placeholder="Enter server name"
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage/>
+									</FormItem>
+								)}
+							/>
+							{/* <Button type="submit" isLoading={isLoading} className="w-full mt-4">Create server</Button> */}
+						</div>
+						<DialogFooter className="bg-gray-100 px-6 py-4">
+							<Button type="submit" variant="primary" disabled={isLoading} className="w-full">
+								Create server
+							</Button>
+						</DialogFooter>
 					</form>
 				</Form>
 			</DialogContent>
