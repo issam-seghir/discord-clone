@@ -47,6 +47,77 @@ export async function getCurrentProfile() {
 	if (profile) return profile;
 }
 
+export async function getServer(id: string) {
+	const server = await prisma.server.findUnique({
+		where: {
+			id,
+		},
+	});
+	if (server) return server;
+}
+
+export async function getServerMembers(id: string) {
+	const members = await prisma.member.findMany({
+		where: {
+			serverId: id,
+		},
+	});
+	if (members) return members;
+}
+
+export async function getServerChannels(id: string) {
+	const channels = await prisma.channel.findMany({
+		where: {
+			serverId: id,
+		},
+	});
+	if (channels) return channels;
+}
+
+export async function getChannelMessages(id: string) {
+	const messages = await prisma.message.findMany({
+		where: {
+			channelId: id,
+		},
+	});
+	if (messages) return messages;
+}
+
+export async function getChannel(id: string) {
+	const channel = await prisma.channel.findUnique({
+		where: {
+			id,
+		},
+	});
+	if (channel) return channel;
+}
+
+export async function getProfile(id: string) {
+	const profile = await prisma.profile.findUnique({
+		where: {
+			id,
+		},
+	});
+	if (profile) return profile;
+}
+
+export async function getProfileServers(id: string) {
+	const servers = await prisma.server.findMany({
+		where: {
+			members: {
+				some: {
+					profileId: id,
+				},
+			},
+		},
+	});
+	if (servers) return servers;
+}
+
+
+
+
+
 export async function getFirstServer(id: string) {
 	const server = await prisma.server.findFirst({
 		where: {
