@@ -52,22 +52,38 @@ export function InitialModel() {
 					<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 						<div className="space-y-8 px-6">
 							<div className="flex items-center justify-center text-center">
-								<UploadButton
-									className="mt-4 ut-button:bg-indigo-500 ut-button:text-white ut-button:hover:bg-indigo-500/90 ut-button:ut-readying:bg-indigo-500/90 ut-button:ut-uploading:bg-indigo-500/90 ut-button:after:bg-indigo-700 "
-									endpoint="serverImage"
-									onClientUploadComplete={(res) => {
-										// Do something with the response
-										console.log("Files: ", res);
-										alert("Upload Completed");
-									}}
-									onUploadError={(error: Error) => {
-										// Do something with the error.
-										alert(`ERROR! ${error.message}`);
-									}}
-									onUploadBegin={(name) => {
-										// Do something once upload begins
-										console.log("Uploading: ", name);
-									}}
+								<FormField
+									control={form.control}
+									name="imageUrl"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<UploadDropzone
+													className="mt-4  focus-visible:outline-zinc-700
+													focus-visible:outline-dashed
+													ut-button:bg-indigo-500 ut-button:text-white ut-button:hover:bg-indigo-500/90 ut-button:ut-readying:bg-indigo-500/90 ut-button:ut-uploading:bg-indigo-500/90 ut-button:after:bg-indigo-700
+													ut-label:text-zinc-700 ut-allowed-content:text-zinc-500
+													"
+													endpoint="serverImage"
+													onClientUploadComplete={(res) => {
+														field.onChange(res?.[0].url);
+														console.log("Files: ", res);
+														alert("Upload Completed");
+													}}
+													onUploadError={(error: Error) => {
+														console.log("UploadthingERROR\n", error.message);
+
+														alert(`ERROR! ${error.message}`);
+													}}
+													onUploadBegin={(name) => {
+														// Do something once upload begins
+														console.log("Uploading: ", name);
+													}}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
 								/>
 							</div>
 							<FormField
@@ -91,7 +107,6 @@ export function InitialModel() {
 									</FormItem>
 								)}
 							/>
-							{/* <Button type="submit" isLoading={isLoading} className="w-full mt-4">Create server</Button> */}
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
 							<Button type="submit" variant="primary" disabled={isLoading} className="w-full">
