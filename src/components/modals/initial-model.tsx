@@ -16,8 +16,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
+import {useRouter} from "next/router";
 
 export function InitialModel() {
+	const router = useRouter();
+
+
 	const schema = z.object({
 		name: z.string().min(1, { message: "Server name is required" }),
 		imageUrl: z.string().min(1, { message: "Image URL is invalid" }),
@@ -38,6 +43,13 @@ export function InitialModel() {
 
 	const onSubmit = async (values: z.infer<typeof schema>) => {
 		console.log(values);
+		try {
+			const { data } = await axios.post("/api/servers", values);
+			form.reset()
+			window.location.reload()
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<Dialog open>
@@ -69,7 +81,8 @@ export function InitialModel() {
 														/>
 														<Button
 															onClick={() => field.onChange("")}
-															className="w-7 h-7  p-[.35rem] absolute bg-rose-500 hover:bg-rose-800 text-white top-0 right-0 rounded-full"
+															type="button"
+															className="w-7 h-7  p-[.35rem] absolute bg-rose-500 hover:bg-rose-800 text-white top-0 right-0 rounded-full shadow-sm"
 														>
 															<svg
 																xmlns="http://www.w3.org/2000/svg"

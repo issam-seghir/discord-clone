@@ -35,6 +35,18 @@ export async function initProfile() {
 	return newProfile;
 }
 
+export async function getCurrentProfile() {
+	const user = await currentUser();
+	if (!user) return auth().redirectToSignIn();
+
+	const profile = await prisma.profile.findUnique({
+		where: {
+			userId: user.id,
+		},
+	});
+	if (profile) return profile;
+}
+
 export async function getFirstServer(id: string) {
 	const server = await prisma.server.findFirst({
 		where: {
