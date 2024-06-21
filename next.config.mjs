@@ -7,6 +7,11 @@ const nextConfig = {
 				hostname: "img.clerk.com",
 				port: "",
 			},
+			{
+				protocol: "https",
+				hostname: "utfs.io",
+				// pathname: `/a/${process.env.UPLOADTHING_APP_ID}/*`,
+			},
 		],
 	},
 };
