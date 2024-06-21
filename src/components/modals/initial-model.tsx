@@ -53,6 +53,7 @@ export function InitialModel() {
 						<div className="space-y-8 px-6">
 							<div className="flex items-center justify-center text-center">
 								<UploadButton
+									className="mt-4 ut-button:bg-indigo-500 ut-button:text-white ut-button:hover:bg-indigo-500/90 ut-button:ut-readying:bg-indigo-500/90"
 									endpoint="serverImage"
 									onClientUploadComplete={(res) => {
 										// Do something with the response
@@ -62,6 +63,10 @@ export function InitialModel() {
 									onUploadError={(error: Error) => {
 										// Do something with the error.
 										alert(`ERROR! ${error.message}`);
+									}}
+									onUploadBegin={(name) => {
+										// Do something once upload begins
+										console.log("Uploading: ", name);
 									}}
 								/>
 							</div>
