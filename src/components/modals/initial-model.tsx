@@ -53,7 +53,7 @@ export function InitialModel() {
 						<div className="space-y-8 px-6">
 							<div className="flex items-center justify-center text-center">
 								<UploadButton
-									className="mt-4 ut-button:bg-indigo-500 ut-button:text-white ut-button:hover:bg-indigo-500/90 ut-button:ut-readying:bg-indigo-500/90"
+									className="mt-4 ut-button:bg-indigo-500 ut-button:text-white ut-button:hover:bg-indigo-500/90 ut-button:ut-readying:bg-indigo-500/90 ut-button:ut-uploading:bg-indigo-500/90 ut-button:after:bg-indigo-700 "
 									endpoint="serverImage"
 									onClientUploadComplete={(res) => {
 										// Do something with the response
