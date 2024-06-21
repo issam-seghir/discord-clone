@@ -13,15 +13,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import axios from "axios";
-import {useRouter} from "next/router";
+
+import { useRouter } from "next/navigation";
 
 export function InitialModel() {
 	const router = useRouter();
-
 
 	const schema = z.object({
 		name: z.string().min(1, { message: "Server name is required" }),
@@ -36,17 +36,16 @@ export function InitialModel() {
 	});
 
 	const { register, handleSubmit, formState, watch } = form;
-	const image = watch("imageUrl");
-	console.log(image);
 
 	const isLoading = formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof schema>) => {
 		console.log(values);
 		try {
-			const { data } = await axios.post("/api/servers", values);
-			form.reset()
-			window.location.reload()
+			await axios.post("/api/servers", values);
+			router.refresh();
+			form.reset();
+			window.location.reload();
 		} catch (error) {
 			console.log(error);
 		}
