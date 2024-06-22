@@ -2,10 +2,10 @@ import React from "react";
 
 import { getCurrentProfile, getProfileServers } from "@/lib/query";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prismadb";
+import { SideBarActions } from "@/components/layout/side-bar-actions";
 
 
-export default async function SideBar() {
+export  async function SideBar() {
 	const profile = await getCurrentProfile();
 	if (!profile) {
 		return redirect("/");
@@ -18,13 +18,14 @@ const servers = await getProfileServers(profile.id);
 			<div className="flex items-center justify-center h-16 border-b border-gray-700">
 				<h1 className="text-white">Servers</h1>
 			</div>
-			<div className="flex flex-col items-center justify-center">
+			<SideBarActions />
+			{/* <div className="flex flex-col items-center justify-center">
 				{servers?.map((server) => (
 					<div key={server.id} className="flex items-center justify-center w-16 h-16 border border-gray-700 rounded-full">
 						<h1 className="text-white">{server.name}</h1>
 					</div>
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 }
