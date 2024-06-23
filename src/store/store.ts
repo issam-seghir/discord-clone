@@ -10,7 +10,7 @@ import { immer } from "zustand/middleware/immer";
 //* plugins :
 //* 1. persist : To persist the store in localstorage
 //* 2. devtools : To use the redux devtools extension
-//* 3. subscribeWithSelector : To use the auto selectors
+//* 3. subscribeWithSelector : To use the scribe selectors
 //* 4. immer : To use the immer for immutability
 
 const useStoreBase = create<Store>()(

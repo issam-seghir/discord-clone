@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
-
+import { ModelProvider } from "@/contexts/model-provider";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
@@ -57,6 +57,7 @@ export default function RootLayout({
 							 */
 							routerConfig={extractRouterConfig(ourFileRouter)}
 						/>
+						<ModelProvider/>
 						{children}
 					</ThemeProvider>
 				</ClerkProvider>

@@ -29,7 +29,7 @@ export default async function Home() {
 								/>
 							</div>
 						</header>
-						{!server && <InitialModel/>}
+						{!server && <InitialModel />}
 						<UserDetails />
 					</div>
 				</div>
