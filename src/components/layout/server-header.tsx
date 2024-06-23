@@ -34,6 +34,11 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 		onOpen("editServer", { server });
 	};
 
+	function handleMangeMembersClick() {
+		setIsDropdownOpen(false);
+		onOpen("manageMembers", { server });
+	}
+
 	return (
 		<DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
 			<DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -53,7 +58,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem className="text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem onClick={handleMangeMembersClick} className="text-sm px-3 py-2 cursor-pointer">
 						Manage Members
 						<Users className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>

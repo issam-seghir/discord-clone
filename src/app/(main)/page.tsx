@@ -1,5 +1,5 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import { UserDetails } from "@/components/user-details";
+import { UserDetails } from "@/components/user/user-details";
 import { ModeToggle } from "@/components/mode-toggler";
 import { initProfile, getFirstServer } from "@/lib/query";
 import {InitialModel} from "@/components/modals/initial-model";

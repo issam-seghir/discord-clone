@@ -3,7 +3,7 @@ import { Server } from "@prisma/client";
 import { StateCreator } from "zustand";
 
 
-export type ModalType = "createServer" | "invite" | "editServer";
+export type ModalType = "createServer" | "invite" | "editServer" | "manageMembers";
 
 
 export interface ModelData {
