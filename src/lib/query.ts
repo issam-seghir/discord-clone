@@ -47,10 +47,30 @@ export async function getCurrentProfile() {
 	if (profile) return profile;
 }
 
-export async function getServer(id: string) {
+export async function getServer(id: string, profileId: string) {
 	const server = await prisma.server.findUnique({
 		where: {
 			id,
+			members: {
+				some: {
+					profileId,
+				},
+			},
+		},
+		include: {
+			channels: {
+				orderBy: {
+					createdAt: "asc",
+				},
+			},
+			members: {
+				include: {
+					profile: true,
+				},
+				orderBy: {
+					role: "asc",
+				},
+			},
 		},
 	});
 	if (server) return server;
@@ -113,10 +133,6 @@ export async function getProfileServers(id: string) {
 	});
 	if (servers) return servers;
 }
-
-
-
-
 
 export async function getFirstServer(id: string) {
 	const server = await prisma.server.findFirst({
