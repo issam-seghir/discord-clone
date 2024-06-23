@@ -1,14 +1,19 @@
 
+import { Server } from "@prisma/client";
 import { StateCreator } from "zustand";
 
 
-export type ModalType = "createServer";
+export type ModalType = "createServer" | "invite";
 
+
+export interface ModelData {
+	server?: Server;
+}
 export interface ModalSlice {
 	type: ModalType | null;
+	data: ModelData;
 	isOpen: boolean;
-	onOpen: (type: ModalType) => void;
-	setType: (type: ModalType) => void;
+	onOpen: (type: ModalType, data?: ModelData) => void;
 	onClose: () => void;
 }
 

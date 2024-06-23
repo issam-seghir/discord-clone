@@ -171,7 +171,6 @@ export function CreateServerModal() {
 			</DialogContent>
 			<DialogFooter>
 				<button className="btn btn-primary">Create server</button>
-				<button className="btn">Join server</button>
 			</DialogFooter>
 		</Dialog>
 	);

@@ -1,3 +1,5 @@
+"use client"
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -5,9 +7,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStore } from "@/store/store";
 import { ServerWithMembersWithProfiles } from "@/types/server";
 import { MemberRole } from "@prisma/client";
 import { ChevronDown,LogOut,TrashIcon, PlusCircle, Settings, UserPlus, Users } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface ServerHeaderProps {
 	server: ServerWithMembersWithProfiles;
@@ -15,12 +19,18 @@ interface ServerHeaderProps {
 }
 
 export function ServerHeader({ server, role }: ServerHeaderProps) {
+	const onOpen = useStore.use.onOpen();
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 	const isAdmin = role === MemberRole.ADMIN;
 	const isModerator = isAdmin || role === MemberRole.MODERATOR;
-	console.log(role);
 
+	const handleInviteClick = () => {
+		setIsDropdownOpen(false);
+		onOpen("invite", { server });
+	};
 	return (
-		<DropdownMenu>
+		<DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
 			<DropdownMenuTrigger className="focus:outline-none" asChild>
 				<button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
 					{server.name}
@@ -29,7 +39,10 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56 text-sm font-medium text-black dark:text-neutral-400 space-y-[2px]">
 				{isModerator && (
-					<DropdownMenuItem className="text-indigo-600 dark:text-indigo-400 text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem
+						onClick={handleInviteClick}
+						className="text-indigo-600 dark:text-indigo-400 text-sm px-3 py-2 cursor-pointer"
+					>
 						Invite People
 						<UserPlus className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>
