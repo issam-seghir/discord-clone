@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
 	DropdownMenu,
@@ -10,8 +10,8 @@ import {
 import { useStore } from "@/store/store";
 import { ServerWithMembersWithProfiles } from "@/types/server";
 import { MemberRole } from "@prisma/client";
-import { ChevronDown,LogOut,TrashIcon, PlusCircle, Settings, UserPlus, Users } from "lucide-react";
-import { useRef, useState } from "react";
+import { ChevronDown, LogOut, PlusCircle, Settings, TrashIcon, UserPlus, Users } from "lucide-react";
+import { useState } from "react";
 
 interface ServerHeaderProps {
 	server: ServerWithMembersWithProfiles;
@@ -29,6 +29,11 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 		setIsDropdownOpen(false);
 		onOpen("invite", { server });
 	};
+	const handleServerSettingsClick = () => {
+		setIsDropdownOpen(false);
+		onOpen("editServer", { server });
+	};
+
 	return (
 		<DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
 			<DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -54,7 +59,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem className="text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem onClick={handleServerSettingsClick} className="text-sm px-3 py-2 cursor-pointer">
 						Server Settings
 						<Settings className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>

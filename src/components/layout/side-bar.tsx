@@ -1,13 +1,12 @@
-import React from "react";
 
-import { getCurrentProfile, getProfileServers } from "@/lib/query";
-import { redirect } from "next/navigation";
 import { SideBarActions } from "@/components/layout/side-bar-actions";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { SideBarItem } from "@/components/layout/side-bar-item";
 import { ModeToggle } from "@/components/mode-toggler";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { getAllServers, getCurrentProfile } from "@/lib/query";
 import { UserButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 
 export  async function SideBar() {
@@ -16,7 +15,7 @@ export  async function SideBar() {
 		return redirect("/");
 	}
 
-const servers = await getProfileServers(profile.id);
+	const servers = await getAllServers(profile.id);
 
 	return (
 		<div className="flex flex-col space-y-4 items-center h-full text-primary w-full dark:bg-[#1E1F22] py-3">

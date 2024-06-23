@@ -76,52 +76,7 @@ export async function getServer(id: string, profileId: string) {
 	if (server) return server;
 }
 
-export async function getServerMembers(id: string) {
-	const members = await prisma.member.findMany({
-		where: {
-			serverId: id,
-		},
-	});
-	if (members) return members;
-}
-
-export async function getServerChannels(id: string) {
-	const channels = await prisma.channel.findMany({
-		where: {
-			serverId: id,
-		},
-	});
-	if (channels) return channels;
-}
-
-export async function getChannelMessages(id: string) {
-	const messages = await prisma.message.findMany({
-		where: {
-			channelId: id,
-		},
-	});
-	if (messages) return messages;
-}
-
-export async function getChannel(id: string) {
-	const channel = await prisma.channel.findUnique({
-		where: {
-			id,
-		},
-	});
-	if (channel) return channel;
-}
-
-export async function getProfile(id: string) {
-	const profile = await prisma.profile.findUnique({
-		where: {
-			id,
-		},
-	});
-	if (profile) return profile;
-}
-
-export async function getProfileServers(id: string) {
+export async function getAllServers(id: string) {
 	const servers = await prisma.server.findMany({
 		where: {
 			members: {
@@ -145,4 +100,18 @@ export async function getFirstServer(id: string) {
 		},
 	});
 	if (server) return redirect(`/servers/${server.id}`);
+}
+
+export async function getServerByInviteCode(inviteCode: string, profileId: string) {
+	const server = await prisma.server.findFirst({
+		where: {
+			inviteCode,
+			members: {
+				some: {
+					profileId,
+				},
+			},
+		},
+	});
+	return server;
 }
