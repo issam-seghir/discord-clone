@@ -1,6 +1,7 @@
 "use client";
 import { ActionTooltip } from "@/components/ui/action-tooltip";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/store";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
@@ -13,7 +14,10 @@ interface SideBarItemProps {
 export function SideBarItem({ name, id, imageUrl }: SideBarItemProps) {
 	const router = useRouter();
 	const params = useParams();
+	const type = useStore.use.type();
 
+
+	console.log(type);
 
 	return (
 		<ActionTooltip side="right" align="center" label={name}>

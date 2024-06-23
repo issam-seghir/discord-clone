@@ -1,4 +1,7 @@
 
+import { StateCreator } from "zustand";
+
+
 export type ModalType = "createServer";
 
 export interface ModalSlice {
@@ -9,4 +12,5 @@ export interface ModalSlice {
 	onClose: () => void;
 }
 
+export type SliceCreator<S> = StateCreator<S, [["zustand/immer", never], ["zustand/devtools", never]], [], S>;
 export type Store = ModalSlice ;

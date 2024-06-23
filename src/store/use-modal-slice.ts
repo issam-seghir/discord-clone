@@ -1,8 +1,4 @@
-import { StateCreator } from "zustand";
-
-import { ModalSlice } from "@/types/store";
-
-export type SliceCreator<S> = StateCreator<S, [["zustand/immer", never], ["zustand/devtools", never]], [], S>;
+import { ModalSlice, SliceCreator } from "@/types/store";
 
 export const createUserModelSlice: SliceCreator<ModalSlice> = (set) => ({
 	type: null,
