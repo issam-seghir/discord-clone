@@ -85,7 +85,6 @@ const onRoleChange = async(memberId : string , role : MemberRole) => {
 												</DropdownMenuSubTrigger>
 												<DropdownMenuPortal >
 													<DropdownMenuSubContent>
-														<DropdownMenuSubContent>
 															<DropdownMenuItem
 																onClick={() => onRoleChange(member.id, "GUEST")}
 															>
@@ -104,7 +103,6 @@ const onRoleChange = async(memberId : string , role : MemberRole) => {
 																	<Check className="w-4 h-4 ml-auto" />
 																)}
 															</DropdownMenuItem>
-														</DropdownMenuSubContent>
 													</DropdownMenuSubContent>
 												</DropdownMenuPortal>
 											</DropdownMenuSub>
