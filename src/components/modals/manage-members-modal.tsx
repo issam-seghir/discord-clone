@@ -72,7 +72,7 @@ const onRoleChange = async(memberId : string , role : MemberRole) => {
 							</div>
 							{data?.server?.profileId !== member.profileId && loadingId !== member.id && (
 								<div className="ml-auto">
-									<DropdownMenu >
+									<DropdownMenu modal={true}>
 										<DropdownMenuTrigger asChild>
 											<MoreVertical className="w-4 h-4 text-zinc-500" />
 										</DropdownMenuTrigger>
