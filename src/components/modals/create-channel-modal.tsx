@@ -16,12 +16,15 @@ import { useStore } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChannelType } from "@prisma/client";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import qs from "query-string";
+
 
 export function CreateChannelModal() {
 	const router = useRouter();
+    const params = useParams()
 	const type = useStore.use.type();
 	const isOpen = useStore.use.isOpen();
 	const onClose = useStore.use.onClose();
@@ -52,7 +55,13 @@ export function CreateChannelModal() {
 	const onSubmit = async (values: z.infer<typeof schema>) => {
 		console.log(values);
 		try {
-			await axios.post("/api/servers", values);
+            const url = qs.stringifyUrl({
+                url: `/api/channels`,
+                query: {
+                    serverId: params?.serverId,
+                },
+            });
+			await axios.post(url, values);
 			form.reset();
 			router.refresh();
 			onClose();
