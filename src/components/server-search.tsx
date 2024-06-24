@@ -10,6 +10,7 @@ import {
 	CommandShortcut,
 } from "@/components/ui/command";
 import { Search, User } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 interface ServerSearchProps {
 	data: {
@@ -27,7 +28,8 @@ interface ServerSearchProps {
 
 export function ServerSearch({ data }: ServerSearchProps) {
 	const [open, setOpen] = useState(false);
-
+    const router = useRouter();
+    const params = useParams();
 
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
@@ -40,6 +42,15 @@ export function ServerSearch({ data }: ServerSearchProps) {
 		document.addEventListener("keydown", down);
 		return () => document.removeEventListener("keydown", down);
 	}, []);
+
+    const onClick = ({id, type}:{id:string,type:"channel" | "member"})=>{
+        setOpen(false);
+        if(type === "channel"){
+            router.push(`/servers/${params.serverId}/channels/${id}`);
+        }else if(type === "member"){
+            router.push(`/servers/${params.serverId}/conversations/${id}`);
+        }
+    }
 
 	return (
 		<>
@@ -62,15 +73,15 @@ export function ServerSearch({ data }: ServerSearchProps) {
 					{data.map(({label,type,data})=>{
                         if(!data?.length) return null ;
                         return (
-                            <CommandGroup key={label} heading={label}>
-                                {data.map(({icon,id,name})=>(
-                                    <CommandItem key={id} >
-                                        {icon}
-                                        <span>{name}</span>
-                                        </CommandItem>
-                                ))}
-                            </CommandGroup>
-                        )
+							<CommandGroup key={label} heading={label}>
+								{data.map(({ icon, id, name }) => (
+									<CommandItem onSelect={() => onClick({id,type})} key={id}>
+										{icon}
+										<span>{name}</span>
+									</CommandItem>
+								))}
+							</CommandGroup>
+						);
                     })}
 				</CommandList>
 			</CommandDialog>
