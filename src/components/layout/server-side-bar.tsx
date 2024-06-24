@@ -12,6 +12,7 @@ import { ChannelType,MemberRole } from "@prisma/client";
 import { ServerHeader } from "@/components/layout/server-header";
 import { ServerSearch } from "@/components/server-search";
 import { Hash,Mic,Video,ShieldCheck,ShieldAlert } from "lucide-react";
+import { ServerSection } from "@/components/server-section";
 interface ServerSideBarProps {
     serverId: string;
 }
@@ -50,7 +51,7 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 		<div className="flex flex-col space-y-4 items-center h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5] py-3">
 			<ServerHeader server={server} role={role} />
 			<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
-			<ScrollArea className="flex-1 px-3">
+			<ScrollArea className="flex-1 w-full px-3">
 				<div className="mt-2"></div>
 				<ServerSearch
 					data={[
@@ -92,6 +93,17 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 						},
 					]}
 				/>
+			<Separator className=" bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+			{!!textChannels?.length && (
+				<div className="mb-2">
+					<ServerSection
+						sectionType="channel"
+						channelType={ChannelType.TEXT}
+						role={role}
+						label="Text Channels"
+					/>
+				</div>
+			)}
 			</ScrollArea>
 		</div>
 	);

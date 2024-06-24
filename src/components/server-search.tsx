@@ -75,7 +75,7 @@ export function ServerSearch({ data }: ServerSearchProps) {
                         return (
 							<CommandGroup key={label} heading={label}>
 								{data.map(({ icon, id, name }) => (
-									<CommandItem onSelect={() => onClick({id,type})} key={id}>
+									<CommandItem className="cursor-pointer" onSelect={() => onClick({id,type})} key={id}>
 										{icon}
 										<span>{name}</span>
 									</CommandItem>
