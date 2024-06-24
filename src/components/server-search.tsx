@@ -59,21 +59,19 @@ export function ServerSearch({ data }: ServerSearchProps) {
 				<CommandInput placeholder="Search for channels or members" />
 				<CommandList>
 					<CommandEmpty>No results found</CommandEmpty>
-					<CommandGroup heading="Suggestions">
-						<CommandItem>
-							<User className="mr-2 h-4 w-4" />
-							<span>Profile</span>
-							<CommandShortcut>⌘P</CommandShortcut>
-						</CommandItem>
-						<CommandItem>Search Emoji</CommandItem>
-						<CommandItem>Calculator</CommandItem>
-					</CommandGroup>
-					<CommandSeparator />
-					<CommandGroup heading="Settings">
-						<CommandItem>Profile</CommandItem>
-						<CommandItem>Billing</CommandItem>
-						<CommandItem>Settings</CommandItem>
-					</CommandGroup>
+					{data.map(({label,type,data})=>{
+                        if(!data?.length) return null ;
+                        return (
+                            <CommandGroup key={label} heading={label}>
+                                {data.map(({icon,id,name})=>(
+                                    <CommandItem key={id} >
+                                        {icon}
+                                        <span>{name}</span>
+                                        </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        )
+                    })}
 				</CommandList>
 			</CommandDialog>
 		</>

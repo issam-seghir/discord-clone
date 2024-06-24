@@ -24,7 +24,7 @@ const iconMap = {
 
 const roleIconMap = {
 	[MemberRole.GUEST]: null,
-	[MemberRole.ADMIN]: <ShieldAlert className="text-indigo-500 mr-2 h-4 w-4" />,
+	[MemberRole.ADMIN]: <ShieldAlert className="text-rose-500 mr-2 h-4 w-4" />,
 	[MemberRole.MODERATOR]: <ShieldCheck className="text-indigo-500 mr-2 h-4 w-4" />,
 };
 
