@@ -54,7 +54,6 @@ export function EditServerModal() {
 			});
 		}
 	}, [isModelOpen, data?.server, form]);
-	console.log(form.getValues());
 
 	const { register, handleSubmit, formState, watch } = form;
 

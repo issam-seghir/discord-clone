@@ -3,6 +3,7 @@ import { getCurrentProfile } from "@/lib/query";
 import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { revalidatePath } from "next/cache";
 
 export async function DELETE(req: Request,{params}: {params: {channelId: string}}) {
 	try {
@@ -43,6 +44,7 @@ export async function DELETE(req: Request,{params}: {params: {channelId: string}
 				},
 			},
 		});
+		revalidatePath("/(main)", "layout");
 
 		return NextResponse.json(server);
 	} catch (error: any) {
