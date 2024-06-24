@@ -20,6 +20,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import qs from "query-string";
+import { useEffect } from "react";
 
 
 export function CreateChannelModal() {
@@ -28,6 +29,7 @@ export function CreateChannelModal() {
 	const type = useStore.use.type();
 	const isOpen = useStore.use.isOpen();
 	const onClose = useStore.use.onClose();
+	const data = useStore.use.data();
 
 	const isModelOpen = isOpen && type === "createChannel";
 
@@ -44,9 +46,18 @@ export function CreateChannelModal() {
 		resolver: zodResolver(schema),
 		defaultValues: {
 			name: "",
-			type: ChannelType.TEXT,
+			type: data?.channelType || ChannelType.TEXT,
 		},
 	});
+
+	useEffect(() => {
+		if (data?.channelType) {
+			form.setValue("type", data?.channelType);
+		} else {
+			form.setValue("type", ChannelType.TEXT);
+		}
+	}, [data?.channelType, form]);
+
 
 	const { register, handleSubmit, formState, watch } = form;
 

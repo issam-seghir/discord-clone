@@ -1,4 +1,4 @@
-import { Server } from "@prisma/client";
+import { ChannelType, Server } from "@prisma/client";
 import { StateCreator } from "zustand";
 
 export type ModalType =
@@ -12,6 +12,7 @@ export type ModalType =
 
 export interface ModelData {
 	server?: Server;
+	channelType?: ChannelType;
 }
 export interface ModalSlice {
 	type: ModalType | null;

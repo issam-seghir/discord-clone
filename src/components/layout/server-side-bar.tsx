@@ -2,6 +2,7 @@
 import { ServerHeader } from "@/components/layout/server-header";
 import { SideBarItem } from "@/components/layout/side-bar-item";
 import { ServerChannel } from "@/components/server-channel";
+import {ServerMember} from "@/components/server-member";
 import { ServerSearch } from "@/components/server-search";
 import { ServerSection } from "@/components/server-section";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -49,7 +50,6 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 			<ServerHeader server={server} role={role} />
 			<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
 			<ScrollArea className="flex-1 w-full px-3">
-				<div className="mt-2"></div>
 				<ServerSearch
 					data={[
 						{
@@ -99,7 +99,7 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 							role={role}
 							label="Text Channels"
 						/>
-						<div className="flex flex-col space-y-2">
+						<div className="flex flex-col space-y-[2px]">
 							{textChannels.map((channel) => (
 								<ServerChannel key={channel.id} channel={channel} server={server} role={role} />
 							))}
@@ -114,7 +114,7 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 							role={role}
 							label="Voice Channels"
 						/>
-						<div className="flex flex-col space-y-2">
+						<div className="flex flex-col space-y-[2px]">
 							{audioChannels.map((channel) => (
 								<ServerChannel key={channel.id} channel={channel} server={server} role={role} />
 							))}
@@ -129,14 +129,28 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 							role={role}
 							label="Video Channels"
 						/>
-						<div className="flex flex-col space-y-2">
+						<div className="flex flex-col space-y-[2px]">
 							{videoChannels.map((channel) => (
 								<ServerChannel key={channel.id} channel={channel} server={server} role={role} />
 							))}
 						</div>
 					</div>
 				)}
-
+				{!!members?.length && (
+					<div className="mb-2">
+						<ServerSection
+							sectionType="members"
+							role={role}
+							label="Members"
+							server={server}
+						/>
+						<div className="flex flex-col space-y-[2px]">
+							{members.map((member) => (
+								<ServerMember key={member.id} member={member} server={server} />
+							))}
+						</div>
+					</div>
+				)}
 			</ScrollArea>
 		</div>
 	);
