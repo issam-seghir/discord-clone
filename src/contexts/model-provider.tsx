@@ -5,6 +5,7 @@ import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { InviteModal } from "@/components/modals/invite-modal";
 import { ManageMembersModal } from "@/components/modals/manage-members-modal";
 import { CreateChannelModal } from "@/components/modals/create-channel-modal";
+import { LeaveServerModal } from "@/components/modals/leave-server-modal";
 export function ModelProvider() {
 	return (
 		<>
@@ -13,6 +14,7 @@ export function ModelProvider() {
 			<InviteModal />
 			<ManageMembersModal />
 			<CreateChannelModal />
+			<LeaveServerModal />
 		</>
 	);
 }
