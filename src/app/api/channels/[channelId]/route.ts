@@ -10,6 +10,7 @@ export async function PATCH(req: Request, { params }: { params: { channelId: str
 		const profile = await getCurrentProfile();
 		const { searchParams } = new URL(req.url);
 		const serverId = searchParams.get("serverId");
+        const { name, type } = await req.json();
 
 		if (!profile) {
 			return new NextResponse("Unauthorized", { status: 401 });
@@ -21,7 +22,10 @@ export async function PATCH(req: Request, { params }: { params: { channelId: str
 			return new NextResponse("Channel not found", { status: 404 });
 		}
 
-		const { name, type } = await req.json();
+        if(name === "general"){
+            return new NextResponse("Channel name can't be 'general'", { status: 400 });
+        }
+
 
 		const server = await prisma.server.update({
 			where: {
@@ -38,11 +42,16 @@ export async function PATCH(req: Request, { params }: { params: { channelId: str
 			data: {
 				channels: {
 					update: {
-						id: params.channelId,
-                        type,
-						name: {
-							not: "general",
-						},
+						where: {
+                            id: params.channelId,
+                            NOT: {
+                                name: "general"
+                            }
+                        },
+                        data: {
+                            name,
+                            type,
+                        },
 					},
 				},
 			},
@@ -50,7 +59,7 @@ export async function PATCH(req: Request, { params }: { params: { channelId: str
 
 		return NextResponse.json(server);
 	} catch (error: any) {
-		console.log(error, "SERVER ID API ERROR");
+		console.log(error, "CHANNEL ID UPDATE API ERROR");
 		return new NextResponse("Internal Error", { status: 500 });
 	}
 }
