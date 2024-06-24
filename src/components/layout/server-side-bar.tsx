@@ -1,26 +1,23 @@
-import React from "react";
 
-import { getCurrentProfile, getServer } from "@/lib/query";
-import { redirect } from "next/navigation";
-import { SideBarActions } from "@/components/layout/side-bar-actions";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { SideBarItem } from "@/components/layout/side-bar-item";
-import { ModeToggle } from "@/components/mode-toggler";
-import { UserButton } from "@clerk/nextjs";
-import { ChannelType,MemberRole } from "@prisma/client";
 import { ServerHeader } from "@/components/layout/server-header";
+import { SideBarItem } from "@/components/layout/side-bar-item";
+import { ServerChannel } from "@/components/server-channel";
 import { ServerSearch } from "@/components/server-search";
-import { Hash,Mic,Video,ShieldCheck,ShieldAlert } from "lucide-react";
 import { ServerSection } from "@/components/server-section";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { getCurrentProfile, getServer } from "@/lib/query";
+import { ChannelType, MemberRole } from "@prisma/client";
+import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
+import { redirect } from "next/navigation";
 interface ServerSideBarProps {
-    serverId: string;
+	serverId: string;
 }
 
 const iconMap = {
-	[ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4"/>,
-	[ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4"/>,
-	[ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4"/>,
+	[ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
+	[ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
+	[ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />,
 };
 
 const roleIconMap = {
@@ -35,18 +32,18 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 		return redirect("/");
 	}
 
-	const server = await getServer(serverId,profile.id);
+	const server = await getServer(serverId, profile.id);
 
-    const textChannels =  server?.channels.filter((channel) => channel.type === ChannelType.TEXT);
-    const audioChannels =  server?.channels.filter((channel) => channel.type === ChannelType.AUDIO);
-    const videoChannels =  server?.channels.filter((channel) => channel.type === ChannelType.VIDEO);
-    const members = server?.members.filter((member) => member.profileId !== profile.id);
+	const textChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT);
+	const audioChannels = server?.channels.filter((channel) => channel.type === ChannelType.AUDIO);
+	const videoChannels = server?.channels.filter((channel) => channel.type === ChannelType.VIDEO);
+	const members = server?.members.filter((member) => member.profileId !== profile.id);
 
-    if(!server) {
-        return redirect("/");
-    }
+	if (!server) {
+		return redirect("/");
+	}
 
-    const role = server?.members?.find((member) => member.profileId === profile.id)?.role;
+	const role = server?.members?.find((member) => member.profileId === profile.id)?.role;
 	return (
 		<div className="flex flex-col space-y-4 items-center h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5] py-3">
 			<ServerHeader server={server} role={role} />
@@ -93,17 +90,22 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 						},
 					]}
 				/>
-			<Separator className=" bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-			{!!textChannels?.length && (
-				<div className="mb-2">
-					<ServerSection
-						sectionType="channel"
-						channelType={ChannelType.TEXT}
-						role={role}
-						label="Text Channels"
-					/>
-				</div>
-			)}
+				<Separator className=" bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+				{!!textChannels?.length && (
+					<div className="mb-2">
+						<ServerSection
+							sectionType="channels"
+							channelType={ChannelType.TEXT}
+							role={role}
+							label="Text Channels"
+						/>
+						<div className="flex flex-col space-y-2">
+							{textChannels.map((channel) => (
+								<ServerChannel key={channel.id} channel={channel} server={server} role={role} />
+							))}
+						</div>
+					</div>
+				)}
 			</ScrollArea>
 		</div>
 	);
