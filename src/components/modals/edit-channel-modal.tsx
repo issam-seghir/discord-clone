@@ -24,7 +24,6 @@ import { useEffect } from "react";
 
 export function EditChannelModal() {
 	const router = useRouter();
-	const params = useParams();
 	const type = useStore.use.type();
 	const isOpen = useStore.use.isOpen();
 	const onClose = useStore.use.onClose();
@@ -53,21 +52,10 @@ export function EditChannelModal() {
 		if (data?.channel) {
 			form.setValue("name", data?.channel?.name as string);
 			form.setValue("type", data?.channel?.type);
-		} else {
-			form.reset({
-				name: "",
-				type: data?.channelType || ChannelType.TEXT,
-			});
 		}
 	}, [isModelOpen, data?.channel, form]);
 
-	useEffect(() => {
-		if (data?.channelType) {
-			form.setValue("type", data?.channelType);
-		} else {
-			form.setValue("type", ChannelType.TEXT);
-		}
-	}, [data?.channelType, form]);
+
 
 	const { register, handleSubmit, formState, watch } = form;
 
@@ -77,9 +65,9 @@ export function EditChannelModal() {
 		console.log(values);
 		try {
 			const url = qs.stringifyUrl({
-				url: `/api/channels`,
+				url: `/api/channels/${data?.channel?.id}`,
 				query: {
-					serverId: params?.serverId,
+					serverId: data?.server?.id ,
 				},
 			});
 			await axios.patch(url, values);
