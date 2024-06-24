@@ -1,10 +1,14 @@
-
 import { Server } from "@prisma/client";
 import { StateCreator } from "zustand";
 
-
-export type ModalType = "createServer" | "invite" | "editServer" | "manageMembers";
-
+export type ModalType =
+	| "createServer"
+	| "invite"
+	| "editServer"
+	| "manageMembers"
+	| "leaveServer"
+	| "deleteServer"
+	| "createChannel";
 
 export interface ModelData {
 	server?: Server;
@@ -18,4 +22,4 @@ export interface ModalSlice {
 }
 
 export type SliceCreator<S> = StateCreator<S, [["zustand/immer", never], ["zustand/devtools", never]], [], S>;
-export type Store = ModalSlice ;
+export type Store = ModalSlice;

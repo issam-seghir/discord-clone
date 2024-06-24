@@ -134,12 +134,7 @@ export function ManageMembersModal() {
 											</DropdownMenuSub>
 											<DropdownMenuSeparator />
 											<DropdownMenuItem
-												onClick={() => {
-													setLoadingId(member.id);
-													setTimeout(() => {
-														setLoadingId("");
-													}, 1000);
-												}}
+												onClick={() => onKick(member.id)}
 											>
 												<Gavel className="mr-2 h-4 w-4" />
 												Kick

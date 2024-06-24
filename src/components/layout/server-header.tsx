@@ -38,6 +38,18 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 		setIsDropdownOpen(false);
 		onOpen("manageMembers", { server });
 	}
+	function handleLeaveServerClick() {
+		setIsDropdownOpen(false);
+		onOpen("leaveServer", { server });
+	}
+	function handleDeleteServerClick() {
+		setIsDropdownOpen(false);
+		onOpen("deleteServer", { server });
+	}
+	function handleCreateChannelClick() {
+		setIsDropdownOpen(false);
+		onOpen("createChannel", { server });
+	}
 
 	return (
 		<DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
@@ -70,20 +82,29 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
 					</DropdownMenuItem>
 				)}
 				{isModerator && (
-					<DropdownMenuItem className="text-indigo-600 dark:text-indigo-400 text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem
+						onClick={handleCreateChannelClick}
+						className="text-indigo-600 dark:text-indigo-400 text-sm px-3 py-2 cursor-pointer"
+					>
 						Create Channel
 						<PlusCircle className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>
 				)}
 				{isModerator && <DropdownMenuSeparator />}
 				{isAdmin && (
-					<DropdownMenuItem className="text-rose-500 text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem
+						onClick={handleDeleteServerClick}
+						className="text-rose-500 text-sm px-3 py-2 cursor-pointer"
+					>
 						Delete Server
 						<TrashIcon className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>
 				)}
 				{!isAdmin && (
-					<DropdownMenuItem className="text-rose-500 text-sm px-3 py-2 cursor-pointer">
+					<DropdownMenuItem
+						onClick={handleLeaveServerClick}
+						className="text-rose-500 text-sm px-3 py-2 cursor-pointer"
+					>
 						Leave Server
 						<LogOut className="w-4 h-4 ml-auto" />
 					</DropdownMenuItem>
