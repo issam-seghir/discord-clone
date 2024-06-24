@@ -1,4 +1,4 @@
-export  function MemberIdPage() {
+export default  function MemberIdPage() {
     return (
         <div>Conversation</div>
     );
