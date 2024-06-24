@@ -8,7 +8,6 @@ export async function DELETE(req: Request,{params}: {params: {channelId: string}
 	try {
 		const profile = await getCurrentProfile();
 		const { searchParams } = new URL(req.url);
-		const { name, type } = await req.json();
 		const serverId = searchParams.get("serverId");
 
 		if (!profile) {
