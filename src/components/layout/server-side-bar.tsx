@@ -52,8 +52,6 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 			<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
 			<ScrollArea className="flex-1 px-3">
 				<div className="mt-2"></div>
-			</ScrollArea>
-			<div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
 				<ServerSearch
 					data={[
 						{
@@ -94,7 +92,7 @@ export async function ServerSideBar({ serverId }: ServerSideBarProps) {
 						},
 					]}
 				/>
-			</div>
+			</ScrollArea>
 		</div>
 	);
 }
