@@ -3,7 +3,7 @@
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
+import { Plus, Smile } from "lucide-react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 interface ChatInputProps {
@@ -48,9 +48,12 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
 									<Input
 										disabled={isLoading}
 										className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-										placeholder="Enter Channel name"
+										placeholder={`Message ${type === "conversation" ? name : "#" + name }`}
 										{...field}
 									/>
+                                    <div className="absolute top-7 right-8">
+                                        <Smile className="w-6 h-6 text-zinc-500 dark:text-zinc-400"/>
+                                    </div>
 								</div>
 							</FormControl>
 						</FormItem>
