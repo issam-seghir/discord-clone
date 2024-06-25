@@ -161,3 +161,88 @@ export async function getChannel(channelId: string) {
 	});
 	if (channel) return channel;
 }
+
+export 	async function getConversation(memberOneId: string, memberTwoId: string) {
+	try {
+		const conversation = await prisma.conversation.findFirst({
+			where: {
+				AND: [
+					{
+					memberOneId: memberOneId,
+					},
+					{
+					memberTwoId: memberTwoId,
+					},
+				],
+			},
+			include: {
+				memberOne : {
+					include: {
+						profile: true,
+					},
+				},
+				memberTwo: {
+					include: {
+						profile: true,
+					},
+				},
+				}
+		});
+		return conversation;
+	} catch (error) {
+		console.log(error);
+		return null ;
+
+	}
+}
+
+
+export async function createConversation(memberOneId: string, memberTwoId: string) {
+	try {
+		const conversation = await prisma.conversation.create({
+			data: {
+				memberOneId,
+				memberTwoId,
+			},
+			include: {
+				memberOne : {
+					include: {
+						profile: true,
+					},
+				},
+				memberTwo: {
+					include: {
+						profile: true,
+					},
+				},
+				}
+		});
+		return conversation;
+	} catch (error) {
+		console.log(error);
+		return null;
+
+	}
+}
+
+export async function getOrCreateConversation(memberOneId: string, memberTwoId: string) {
+	const conversation = await getConversation(memberOneId, memberTwoId) || await getConversation(memberTwoId, memberOneId);
+	if (conversation) return conversation;
+	const newConversation = await createConversation(memberOneId, memberTwoId);
+	return newConversation;
+}
+
+
+
+export async function getCurrentMember(serverId: string, profileId: string) {
+	const member = await prisma.member.findFirst({
+		where: {
+			serverId,
+			profileId,
+		},
+		include: {
+			profile: true,
+		},
+	});
+	if (member) return member;
+}
