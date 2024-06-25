@@ -1,6 +1,4 @@
-import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)", "/api/uploadthing"]);
 
@@ -19,4 +17,4 @@ export default clerkMiddleware(
 // 	// except static assets. + websocket routes
 // 	matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 // };
-export const config = { matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"] };
+export const config = { matcher: ["/((?!.*\\..*|_next|ws).*)", "/", "/(api|trpc)(.*)"] };

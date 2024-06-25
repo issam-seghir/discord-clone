@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prismadb";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser,getAuth } from "@clerk/nextjs/server";
+import { NextApiRequest } from "next";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -42,6 +43,18 @@ export async function getCurrentProfile() {
 	const profile = await prisma.profile.findUnique({
 		where: {
 			userId: user.id,
+		},
+	});
+	if (profile) return profile;
+}
+
+export async function getCurrentProfilePage(req: NextApiRequest) {
+	const authInfo = await getAuth(req);
+	if (!authInfo.sessionId) return auth().redirectToSignIn();
+
+	const profile = await prisma.profile.findUnique({
+		where: {
+			userId: authInfo.userId as string,
 		},
 	});
 	if (profile) return profile;

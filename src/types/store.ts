@@ -10,12 +10,15 @@ export type ModalType =
 	| "deleteServer"
 	| "createChannel"
 	| "editChannel"
-	| "deleteChannel";
+	| "deleteChannel"
+	| "messageFile";
 
 export interface ModelData {
 	server?: Server;
 	channel?: Channel;
 	channelType?: ChannelType;
+	apiUrl?: string;
+	query?: Record<string, any>;
 }
 export interface ModalSlice {
 	type: ModalType | null;
