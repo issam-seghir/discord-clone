@@ -10,6 +10,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useStore } from "@/store/store";
 import { EmojiPicker } from "@/components/ui/emoji-picker";
+import { useRouter } from "next/navigation";
 interface ChatInputProps {
 	apiUrl: string;
 	query: Record<string, any>;
@@ -21,7 +22,7 @@ const formSchema = z.object({
 	content: z.string().min(1),
 });
 export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
-
+	const router = useRouter();
 	const onOpen = useStore.use.onOpen();
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -38,7 +39,8 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                 query
             });
             await axios.post(url, values);
-            form.setValue("content", "");
+			form.reset();
+			router.refresh();
         } catch (error) {
             console.error(error);
         }
@@ -68,7 +70,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
 									/>
 									<div className="absolute top-7 right-8">
 										<EmojiPicker onChange={
-											(value) => form.setValue("content", field.value + value)
+											(value) => form.setValue("content", field.value + " " + value)
 										} />
 									</div>
 								</div>

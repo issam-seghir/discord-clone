@@ -1,6 +1,7 @@
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "@/app/globals.css";
 import { ModalProvider } from "@/contexts/modal-provider";
+import { QueryProvider } from "@/contexts/query-provider";
 import { SocketProvider } from "@/contexts/socket-provider";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import { cn } from "@/lib/utils";
@@ -59,8 +60,10 @@ export default function RootLayout({
 							routerConfig={extractRouterConfig(ourFileRouter)}
 						/>
 						<SocketProvider>
-							<ModalProvider />
-							{children}
+							<QueryProvider>
+								<ModalProvider />
+								{children}
+							</QueryProvider>
 						</SocketProvider>
 					</ThemeProvider>
 				</ClerkProvider>
