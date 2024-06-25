@@ -9,7 +9,7 @@ import z from "zod";
 import axios from "axios";
 import qs from "query-string";
 import { useStore } from "@/store/store";
-
+import { EmojiPicker } from "@/components/ui/emoji-picker";
 interface ChatInputProps {
 	apiUrl: string;
 	query: Record<string, any>;
@@ -67,6 +67,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
 										{...field}
 									/>
 									<div className="absolute top-7 right-8">
+										<EmojiPicker />
 										<Smile className="w-6 h-6 text-zinc-500 dark:text-zinc-400" />
 									</div>
 								</div>
