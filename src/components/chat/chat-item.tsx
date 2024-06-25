@@ -1,8 +1,10 @@
 import { ActionTooltip } from "@/components/ui/action-tooltip";
 import { UserAvatar } from "@/components/user/user-avatar";
+import { cn } from "@/lib/utils";
 import { Member, MemberRole, Profile } from "@prisma/client";
-import { ShieldAlert,ShieldCheck, FileText } from "lucide-react"
+import { Edit, FileText, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 interface ChatItemProps {
 	id: string;
 	content: string;
@@ -34,13 +36,16 @@ export function ChatItem({
 	socketUrl,
 	socketQuery,
 }: ChatItemProps) {
-    const isAdmin = currentMember.role === MemberRole.ADMIN;
-    const isModerator = currentMember.role === MemberRole.MODERATOR;
-    const isOwner = currentMember.id === member.id;
-    const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
-    const canEditMessage = !deleted && isOwner && !fileUrl;
-    const isPDF = fileUrl?.endsWith(".pdf") && fileUrl;
-    const isImage = fileUrl && !isPDF;
+	const [isEditing, setIsEditing] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
+
+	const isAdmin = currentMember.role === MemberRole.ADMIN;
+	const isModerator = currentMember.role === MemberRole.MODERATOR;
+	const isOwner = currentMember.id === member.id;
+	const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
+	const canEditMessage = !deleted && isOwner && !fileUrl;
+	const isPDF = fileUrl?.endsWith(".pdf") && fileUrl;
+	const isImage = fileUrl && !isPDF;
 	return (
 		<div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
 			<div className="group flex gap-x-2 items-start w-full">
@@ -77,9 +82,33 @@ export function ChatItem({
 							<FileText className="w-12 h-12 text-zinc-500 dark:text-zinc-400 m-auto" />
 						</a>
 					)}
-					{/* <p className="text-sm mt-2">{content}</p> */}
+					{!fileUrl && !isEditing && (
+						<p
+							className={cn(
+								"text-sm text-zinc-600 dark:text-zinc-300",
+								deleted && "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
+							)}
+						>
+							{content}
+							{isUpdated && !deleted && (
+								<span className="text-[10px] text-zinc-500 dark:text-zinc-400 ">(edited)</span>
+							)}
+						</p>
+					)}
 				</div>
 			</div>
+			{canDeleteMessage && (
+				<div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+					{canEditMessage && (
+						<ActionTooltip label="Edit">
+							<Edit className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+						</ActionTooltip>
+					)}
+					<ActionTooltip label="Delete">
+						<Trash className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+					</ActionTooltip>
+				</div>
+			)}
 		</div>
 	);
 }

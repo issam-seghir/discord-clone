@@ -46,7 +46,7 @@ export function ChatMessages({
     if (status === "pending") {
         return (
             <div className="flex-1 justify-center flex flex-col items-center">
-                <Loader2 className="h-7 w-7 text-zinc-500 animate-none my-4"/>
+                <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
                 <p className="text-xs dark:text-zinc-400 text-zinc-500">Loading messages...</p>
             </div>
         );
