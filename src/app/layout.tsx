@@ -1,13 +1,14 @@
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "@/app/globals.css";
+import { ModalProvider } from "@/contexts/modal-provider";
+import { SocketProvider } from "@/contexts/socket-provider";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
-import { ModalProvider } from "@/contexts/modal-provider";
-import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -57,8 +58,10 @@ export default function RootLayout({
 							 */
 							routerConfig={extractRouterConfig(ourFileRouter)}
 						/>
-						<ModalProvider />
-						{children}
+						<SocketProvider>
+							<ModalProvider />
+							{children}
+						</SocketProvider>
 					</ThemeProvider>
 				</ClerkProvider>
 			</body>
