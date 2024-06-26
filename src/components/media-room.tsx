@@ -24,7 +24,7 @@ interface MediaRoomProps {
 }
 
 export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomProps) {
-	const { user } = useUser();
+	const { user ,isLoaded} = useUser();
 	const router = useRouter();
 	const [token, setToken] = useState("");
 
@@ -33,9 +33,8 @@ export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomPro
 			user?.fullName ||
 			user?.firstName ||
 			user?.lastName ||
-			user?.primaryEmailAddress?.emailAddress.split("@")[0] ||
-			"unknown";
-		if (!name) return;
+			user?.primaryEmailAddress?.emailAddress.split("@")[0]
+            if (!name) return
 		(async () => {
 			console.log("resp");
 			try {
@@ -49,7 +48,7 @@ export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomPro
 		})();
 	}, [chatId, user?.firstName, user?.lastName, user?.fullName, user?.primaryEmailAddress?.emailAddress]);
 
-	if (token === "") {
+	if (token === "" || !isLoaded) {
 		return (
 			<div className="flex flex-col flex-1 justify-center items-center">
 				<Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
@@ -70,7 +69,7 @@ export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomPro
 			}}
 			// Use the default LiveKit theme for nice styles.
 			data-lk-theme="default"
-			style={{ height: "100dvh" }}
+			className="flex flex-col flex-1 h-[80%]"
 		>
 			{/* Your custom component with basic video conferencing functionality. */}
 			<MyVideoConference />
@@ -94,7 +93,7 @@ function MyVideoConference() {
 		{ onlySubscribed: false }
 	);
 	return (
-		<GridLayout tracks={tracks} style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}>
+		<GridLayout tracks={tracks} >
 			{/* The GridLayout accepts zero or one child. The child is used
       as a template to render all passed in tracks. */}
 			<ParticipantTile />

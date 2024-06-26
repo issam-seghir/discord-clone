@@ -3,6 +3,7 @@ import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { MediaRoom } from "@/components/media-room";
 import { getChannel, getCurrentProfile,getGeneralServer, getMember } from "@/lib/query";
+import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -33,7 +34,12 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
 		return redirect("/");
 	}
 	return (
-		<div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+		<div
+			className={cn(
+				"bg-white dark:bg-[#313338] flex flex-col h-full",
+				"overflow-hidden" && (channel.type === ChannelType.VIDEO || channel.type === ChannelType.AUDIO) ,
+			)}
+		>
 			<ChatHeader name={channel?.name} serverId={channel?.serverId} type="channel" />
 			{channel.type === ChannelType.TEXT && (
 				<>
