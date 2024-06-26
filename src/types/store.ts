@@ -11,7 +11,8 @@ export type ModalType =
 	| "createChannel"
 	| "editChannel"
 	| "deleteChannel"
-	| "messageFile";
+	| "messageFile"
+	| "deleteMessage";
 
 export interface ModelData {
 	server?: Server;

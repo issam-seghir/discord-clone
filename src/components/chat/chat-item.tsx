@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
 import { ActionTooltip } from "@/components/ui/action-tooltip";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { UserAvatar } from "@/components/user/user-avatar";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
+import axios from "axios";
 import { Edit, FileText, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Form,FormControl,FormField,FormItem } from "@/components/ui/form";
-import z from "zod";
-import { Button } from "@/components/ui/button";
+import { useParams, useRouter } from "next/navigation";
 import qs from "query-string";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import axios from "axios";
+import z from "zod";
 
 interface ChatItemProps {
 	id: string;
@@ -36,7 +38,7 @@ const roleIconMap = {
 };
 
 const formSchema = z.object({
-    content: z.string().min(1),
+	content: z.string().min(1),
 });
 
 export function ChatItem({
@@ -52,9 +54,9 @@ export function ChatItem({
 	socketQuery,
 }: ChatItemProps) {
 	const [isEditing, setIsEditing] = useState(false);
-	const [isDeleting, setIsDeleting] = useState(false);
-
-
+	const onOpen = useStore.use.onOpen();
+	const router = useRouter();
+	const params = useParams();
 
 	const isAdmin = currentMember.role === MemberRole.ADMIN;
 	const isModerator = currentMember.role === MemberRole.MODERATOR;
@@ -64,57 +66,62 @@ export function ChatItem({
 	const isPDF = fileUrl?.endsWith(".pdf") && fileUrl;
 	const isImage = fileUrl && !isPDF;
 
-        const form = useForm<z.infer<typeof formSchema>>({
-			resolver: zodResolver(formSchema),
-			defaultValues: {
-				content: content,
-			},
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			content: content,
+		},
+	});
+
+	useEffect(() => {
+		form.reset({
+			content: content,
 		});
+	}, [content, form]);
 
-        useEffect(() => {
-        form.reset({
-            content: content,
-        });
-
-        }, [content,form])
-
-        useEffect(() => {
-			const handleKeyDown = (event: any) =>{
-				if(event.key === "Escape" || event.keyCode === 27){
-					setIsEditing(false)
-				}
-			};
-			window.addEventListener("keydown",handleKeyDown)
-
-			return () => window.removeEventListener("keydown",handleKeyDown)
-        }, [])
-
-		const isLoading = form.formState.isSubmitting
-
-		const onSubmit = async (values: z.infer<typeof formSchema>) => {
-			try {
-				const url = qs.stringifyUrl({
-					url: `${socketUrl}/${id}`,
-					query: socketQuery,
-				});
-				await axios.patch(url, values);
-				form.reset();
-				// router.refresh();
-			} catch (error) {
-				console.error(error);
+	useEffect(() => {
+		const handleKeyDown = (event: any) => {
+			if (event.key === "Escape" || event.keyCode === 27) {
+				setIsEditing(false);
 			}
 		};
+		window.addEventListener("keydown", handleKeyDown);
+
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, []);
+
+	const isLoading = form.formState.isSubmitting;
+
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		try {
+			const url = qs.stringifyUrl({
+				url: `${socketUrl}/${id}`,
+				query: socketQuery,
+			});
+			await axios.patch(url, values);
+			form.reset();
+			setIsEditing(false);
+			// router.refresh();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onMemberClick = () => {
+		if(member?.id === currentMember.id) return;
+		router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+	}
 
 	return (
 		<div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
 			<div className="group flex gap-x-2 items-start w-full">
-				<div className="transition cursor-pointer hover:drop-shadow-md">
+				<div onClick={onMemberClick} className="transition cursor-pointer hover:drop-shadow-md">
 					<UserAvatar src={member.profile.imageUrl ?? undefined} />
 				</div>
 				<div className="flex flex-col w-full">
 					<div className="flex items-center gap-x-2">
 						<div className="flex items-center">
-							<p className="font-semibold text-sm hover:underline cursor-pointer">
+							<p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
 								{member.profile.name}
 							</p>
 							<ActionTooltip label={member.role}>{roleIconMap[member.role]}</ActionTooltip>
@@ -201,7 +208,9 @@ export function ChatItem({
 					)}
 					<ActionTooltip label="Delete">
 						<Trash
-							onClick={() => setIsDeleting(true)}
+							onClick={() =>
+								onOpen("deleteMessage", { apiUrl: `${socketUrl}/${id}`, query: socketQuery })
+							}
 							className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
 						/>
 					</ActionTooltip>

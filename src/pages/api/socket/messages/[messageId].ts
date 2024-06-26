@@ -20,9 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 		if (!channelId) {
 			return res.status(400).json({ message: "ServerId and channelId are required" });
 		}
-		if (!content) {
-			return res.status(400).json({ message: "Content  is required" });
-		}
+
 
 		const server = await prisma.server.findFirst({
 			where: {
@@ -107,6 +105,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
             if(!isMessageOwner) {
                 return res.status(401).json({message: "Unauthorized"});
             }
+            if (!content) {
+				return res.status(400).json({ message: "Content  is required" });
+			}
             message = await prisma.message.update({
                 where:{
                     id: messageId as string ,
