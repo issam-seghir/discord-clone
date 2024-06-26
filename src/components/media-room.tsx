@@ -12,16 +12,20 @@ import {
 import "@livekit/components-styles";
 import { Track } from "livekit-client";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 interface MediaRoomProps {
+	generalChannel: string;
 	chatId: string;
 	video: boolean;
 	audio: boolean;
 }
 
-export function MediaRoom({ chatId, video, audio }: MediaRoomProps) {
+export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomProps) {
 	const { user } = useUser();
+	const router = useRouter();
 	const [token, setToken] = useState("");
 
 	useEffect(() => {
@@ -61,6 +65,9 @@ export function MediaRoom({ chatId, video, audio }: MediaRoomProps) {
 			token={token}
 			serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
 			connect={true}
+			onDisconnected={() => {
+				router.push(`${generalChannel}`);
+			}}
 			// Use the default LiveKit theme for nice styles.
 			data-lk-theme="default"
 			style={{ height: "100dvh" }}

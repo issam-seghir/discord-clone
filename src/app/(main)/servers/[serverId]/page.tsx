@@ -13,12 +13,12 @@ export default async function ServerIdPage({ params }: ServerIdPageProps) {
 	if (!profile) {
 		return auth().redirectToSignIn();
 	}
-	const server = await getGeneralServer(params.serverId, profile.id);
+	const generalServer = await getGeneralServer(params.serverId, profile.id);
 
-    if(server){
-        redirect(`/servers/${params.serverId}/channels/${server?.channels?.[0]?.id}`);
+    if(generalServer){
+        redirect(`/servers/${params.serverId}/channels/${generalServer?.channels?.[0]?.id}`);
     }
-    if (!server) {
+    if (!generalServer) {
         return auth().redirectToSignIn();
     }
 	return <div>New server</div>;
