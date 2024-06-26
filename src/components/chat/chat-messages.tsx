@@ -6,9 +6,9 @@ import { useChatQuery } from "@/hooks/use-chat-query";
 import { MessagesWithMemberWithProfile } from "@/types/server";
 import { Member } from "@prisma/client";
 import { Loader2, ServerCrash } from "lucide-react";
-
-import { Fragment } from "react";
+import { useRef, ElementRef, Fragment } from "react";
 import { format } from "date-fns";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -24,6 +24,7 @@ interface ChatMessagesProps {
 	type: "channel" | "conversation";
 }
 
+
 export function ChatMessages({
 	name,
 	member,
@@ -35,13 +36,20 @@ export function ChatMessages({
 	paramValue,
 	type,
 }: ChatMessagesProps) {
+	const queryKey = `chat:${chatId}`
+	const addKey = `chat:${chatId}/messages`
+	const updateKey = `chat:${chatId}/messages:update`
+    const chatRef = useRef<ElementRef<"div">>(null)
+    const bottomRef = useRef<ElementRef<"div">>(null)
+
     const {data, fetchNextPage, hasNextPage, isFetchingNextPage, status} = useChatQuery({
         apiUrl,
         paramKey,
         paramValue,
         queryKey: `chat:${chatId}`
     });
-    console.log(status);
+
+	useChatSocket({queryKey,addKey,updateKey})
 
     if (status === "pending") {
         return (
@@ -60,8 +68,25 @@ export function ChatMessages({
 		);
     }
 	return (
-		<div className="flex-1 justify-end flex flex-col py-4 overflow-y-auto">
-			<ChatWelcome type={type} name={name} />
+		<div ref={chatRef}  className="flex-1 justify-end flex flex-col py-4 overflow-y-auto">
+			{!hasNextPage && <div className="flex-1" />}
+			{!hasNextPage &&
+			(
+				<ChatWelcome type={type} name={name} />
+			)}
+			{hasNextPage && (
+				<div className="flex justify-center">
+					{isFetchingNextPage ? (
+						<Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4"/>
+					) : (
+						<button
+						onClick={() => fetchNextPage()}
+						className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition">
+							Load previous messages
+						</button>
+					)}
+				</div>
+			)}
 			<div className="flex flex-col-reverse mt-auto ">
 				{data?.pages?.map((group, index) => (
 					<Fragment key={index}>
