@@ -1,4 +1,6 @@
 import { ChatHeader } from "@/components/chat/chat-header";
+import { ChatMessages } from "@/components/chat/chat-messages";
+import { ChatInput } from "@/components/chat/chat-input";
 import { getCurrentMember, getCurrentProfile, getOrCreateConversation } from "@/lib/query";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -33,6 +35,27 @@ export default async function MemberIdPage({ params }: MemberIdPageProps) {
 				serverId={params.serverId}
 				type="conversation"
 				imageUrl={otherMember.profile.imageUrl ?? undefined}
+			/>
+			<ChatMessages
+				member={currentMember}
+				name={otherMember.profile.name}
+				chatId={conversation.id}
+				type="conversation"
+				apiUrl="/api/direct-messages"
+				paramKey="conversationId"
+				paramValue={conversation.id}
+				socketUrl="/api/socket/direct-messages"
+				socketQuery={{
+					conversationId: conversation.id,
+				}}
+			/>
+			<ChatInput
+				name={otherMember.profile.name}
+				type="conversation"
+				apiUrl="/api/socket/direct-messages"
+				query={{
+					conversationId: conversation.id,
+				}}
 			/>
 		</div>
 	);
