@@ -22,11 +22,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
 		return auth().redirectToSignIn();
 	}
 
-	const generalServer = await getGeneralServer(params.serverId, profile.id);
-	const generalChannel = generalServer?.channels?.[0]?.id || "";
-	// if (generalServer) {
-	// 	redirect(`/servers/${params.serverId}/channels/${generalServer?.channels?.[0]?.id}`);
-	// }
+
 	const channel = await getChannel(params.channelId);
 	const member = await getMember(params.serverId, profile.id);
 
@@ -37,7 +33,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
 		<div
 			className={cn(
 				"bg-white dark:bg-[#313338] flex flex-col h-full",
-				"overflow-hidden" && (channel.type === ChannelType.VIDEO || channel.type === ChannelType.AUDIO) ,
+				"overflow-hidden" && (channel.type === ChannelType.VIDEO || channel.type === ChannelType.AUDIO)
 			)}
 		>
 			<ChatHeader name={channel?.name} serverId={channel?.serverId} type="channel" />
@@ -69,10 +65,10 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
 				</>
 			)}
 			{channel.type === ChannelType.AUDIO && (
-				<MediaRoom chatId={channel.id} generalChannel={generalChannel} video={false} audio={true} />
+				<MediaRoom chatId={channel.id} serverId={params.serverId} video={false} audio={true} />
 			)}
 			{channel.type === ChannelType.VIDEO && (
-				<MediaRoom chatId={channel.id} generalChannel={generalChannel} video={true} audio={true} />
+				<MediaRoom chatId={channel.id} serverId={params.serverId} video={true} audio={true} />
 			)}
 		</div>
 	);

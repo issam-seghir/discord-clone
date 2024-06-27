@@ -17,14 +17,14 @@ import { useEffect, useState } from "react";
 
 
 interface MediaRoomProps {
-	generalChannel: string;
+	serverId: string;
 	chatId: string;
 	video: boolean;
 	audio: boolean;
 }
 
-export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomProps) {
-	const { user ,isLoaded} = useUser();
+export function MediaRoom({ serverId, chatId, video, audio }: MediaRoomProps) {
+	const { user, isLoaded } = useUser();
 	const router = useRouter();
 	const [token, setToken] = useState("");
 
@@ -33,8 +33,8 @@ export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomPro
 			user?.fullName ||
 			user?.firstName ||
 			user?.lastName ||
-			user?.primaryEmailAddress?.emailAddress.split("@")[0]
-            if (!name) return
+			user?.primaryEmailAddress?.emailAddress.split("@")[0];
+		if (!name) return;
 		(async () => {
 			console.log("resp");
 			try {
@@ -65,7 +65,7 @@ export function MediaRoom({ generalChannel, chatId, video, audio }: MediaRoomPro
 			serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
 			connect={true}
 			onDisconnected={() => {
-				router.push(`${generalChannel}`);
+				router.push(`/servers/${serverId}`);
 			}}
 			// Use the default LiveKit theme for nice styles.
 			data-lk-theme="default"

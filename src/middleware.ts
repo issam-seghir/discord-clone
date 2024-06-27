@@ -9,7 +9,7 @@ export default clerkMiddleware(
 			auth().protect();
 		}
 	},
-	{ debug: process.env.NODE_ENV === "development" }
+	// { debug: process.env.NODE_ENV === "development" }
 );
 
 // export const config = {

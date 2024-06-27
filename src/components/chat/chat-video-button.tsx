@@ -14,15 +14,17 @@ export function ChatVideoButton() {
 	const tooltipLabel = isVideo ? "End video call" : "Start video call";
 
 	const onClick = () => {
-		const url = qs.stringify(
+		const url = qs.stringifyUrl(
 			{
 				url: pathname || "",
 				query: {
-					video: !isVideo,
+					video: isVideo ? undefined : true,
 				},
 			},
 			{ skipNull: true }
 		);
+		console.log(url);
+
         router.push(url);
 
 	};

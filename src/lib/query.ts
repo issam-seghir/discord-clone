@@ -239,7 +239,9 @@ export async function createConversation(memberOneId: string, memberTwoId: strin
 }
 
 export async function getOrCreateConversation(memberOneId: string, memberTwoId: string) {
-	const conversation = await getConversation(memberOneId, memberTwoId) || await getConversation(memberTwoId, memberOneId);
+	if (!memberOneId || !memberTwoId) return ;
+		const conversation =
+			(await getConversation(memberOneId, memberTwoId)) || (await getConversation(memberTwoId, memberOneId));
 	if (conversation) return conversation;
 	const newConversation = await createConversation(memberOneId, memberTwoId);
 	return newConversation;
