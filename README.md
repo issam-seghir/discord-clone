@@ -5,14 +5,14 @@
 
 <h1 align="center" >Discord Clone</h1>
 
-![cntr](https://img.shields.io/github/contributors/issam-seghir/spectrum-store?color=pink&style=for-the-badge)
-![pullreQ](https://img.shields.io/github/issues-pr/issam-seghir/spectrum-store?color=orange&style=for-the-badge)
-![comt](https://img.shields.io/github/last-commit/issam-seghir/spectrum-store?style=for-the-badge)
+![cntr](https://img.shields.io/github/contributors/issam-seghir/discord-clone?color=pink&style=for-the-badge)
+![pullreQ](https://img.shields.io/github/issues-pr/issam-seghir/discord-clone?color=orange&style=for-the-badge)
+![comt](https://img.shields.io/github/last-commit/issam-seghir/discord-clone?style=for-the-badge)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/mit/)
 
-![frk](https://img.shields.io/github/forks/issam-seghir/spectrum-store?style=flat-square)
-![str](https://img.shields.io/github/stars/issam-seghir/spectrum-store?style=flat-square)
-![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fspectrum-store.vercel.app)
+![frk](https://img.shields.io/github/forks/issam-seghir/discord-clone?style=flat-square)
+![str](https://img.shields.io/github/stars/issam-seghir/discord-clone?style=flat-square)
+![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fdiscord-clone.vercel.app)
 
   <p align="center">
 
@@ -23,11 +23,11 @@
  Designed with a focus on security, it implements best practices for routing and server actions.
     <br />
     <br />
-    <a href="https://spectrum-store.vercel.app">View Demo</a>
+    <a href="https://discord-clone.vercel.app">View Demo</a>
     .
-    <a href="https://github.com/issam-seghir/spectrum-store/issues">Report Bug</a>
+    <a href="https://github.com/issam-seghir/discord-clone/issues">Report Bug</a>
     .
-    <a href="https://github.com/issam-seghir/spectrum-store/pulls">Request Feature</a>
+    <a href="https://github.com/issam-seghir/discord-clone/pulls">Request Feature</a>
   </p>
 
 <br>
@@ -118,7 +118,7 @@ First, run the development server:
 1. Clone or Fork the repo
 
    ```sh
-   git clone https://github.com/issam-seghir/spectrum-store.git
+   git clone https://github.com/issam-seghir/discord-clone.git
    cd ./your_project
    ```
 
