@@ -18,7 +18,6 @@
   **Discord Clone | A Full-Featured Real Time (Video , Audio , Chat) Application Powered by Next.js, Socket io , LiveKit**
   This project offers a robust and scalable solution for real-time communication,
   emulating the core functionalities of Discord with a modern tech stack.
-
     <br />
     <br />
     <a href="https://discord-clone-production-e15b.up.railway.app/">View Demo</a>
@@ -45,29 +44,34 @@
 - ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 - ![Shadcn](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
 - ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
-- ![Rechart](https://img.shields.io/badge/rechart-F5788D.svg?style=for-the-badge&logo=rechart&logoColor=white)
+- ![Zustand](https://img.shields.io/badge/zustand-FFA351.svg?style=for-the-badge&logo=zustand&logoColor=white)
 - ![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
-- ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+- ![uploadthing](https://img.shields.io/badge/uploadthing-B91C1C?style=for-the-badge&logo=upload%20thing)
+- ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+- ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
+- ![livekit](https://img.shields.io/badge/livekit-black?style=for-the-badge&logo=livekit)
+- ![Prisma](https://img.shields.io/badge/Prisma-011627?style=for-the-badge&logo=prisma&logoColor=white)
+- ![Clerk](https://img.shields.io/badge/Clerk-765eff.svg?style=for-the-badge&logo=clerk&logoColor=white)
 
 ## Features
 
-- Real-time messaging using Socket.io
-- Send attachments as messages using UploadThing
-- Delete & Edit messages in real time for all users
-- Create Text, Audio and Video call Channels
-- 1:1 conversation between members
-- 1:1 video calls between members
-- Member management (Kick, Role change Guest / Moderator)
-- Unique invite link generation & full working invite system
-- Infinite loading for messages in batches of 10 (@tanstack/query)
-- Server creation and customization
-- Beautiful UI using TailwindCSS and ShadcnUI
-- Full responsivity and mobile UI
-- Light / Dark mode
-- Websocket fallback: Polling with alerts
-- ORM using Prisma
-- MySQL database using Planetscale
-- Authentication with Clerk
+- 🔒 **Authentication + Google Auth** With **Clerk**
+- 🎉 **Server** **creation** and customization
+- 📱 **Real-time** messaging using **Socket.io**
+- 🎁 **Send** **attachments** as messages using **UploadThing**
+- 🧨 **Delete** & **Edit** messages in **real time** for all users
+- 🚀 **Create** **Text**, **Audio** and **Video** call **Channels**
+- 📨 **Conversation** between members
+- 🎬 **Video** calls between members
+- 🔊 **Audio** calls between members
+- 🔰 **Member management** (**Kick**, Role change **Guest** / **Moderator**)
+- 🔗 **Unique** **invite** **link** **generation** & full working invite system
+- ⛓ **Infinite** **loading** for **messages** in batches of 10 (**@tanstack/query**)
+- 📳**Websocket** **fallback**: **Polling** with alerts
+- 🔍 **Search** **Command Line** Functionality
+- 🎨 **Theme Toggler** (Light /Dark mode)
+- 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
+- 🎊 **Responsive Design**
 
 ### Technique
 
@@ -78,35 +82,16 @@
 
 ### Main
 
-- 🔒 **Login** Page With **JWT** Authentication + **Logout**
-- 🌍 **Home** **Page** with Grid Layout
-- 👜 **Product Page** Showing all Product with **category** **filter**
-- 👓 **Product Details** page with **ratting** , **pricing**  & **add cart** button
-- 🛒 **Cart Drawer** (add to cart , remove from cart)
-- 🔍 **Global** **Search** Functionality
-- 🎨 **Theme Toggler** (Light /Dark mode)
+
 - ✨ **Loading** **animations** & **Skeleton**
 
 - 📊 **Admin Dashboard** with CRUD operatons for prouct , pagination , searching charts
 - 🛡 **Security in mind** : **Authentication** (JWT + Cookies)  & **Authorization** DATA Layer + **Middleware** & **Server actions** with **validation**
-- 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
-- 🎊 **Responsive Design**
 
-## Note
 
-- you can use any **fakestoreapi** user to login
-- for **admin** **role** use only the default values
-  - **useranme** : mor_2314
-  - **password** : 83r5^_
+[![Stargazers over time](https://starchart.cc/Naereen/badges.svg)](https://starchart.cc/Naereen/badges)
 
-- You can open Admin dashboard and do CRUD on proudcts by following these steps :
-  - make sure you login with admin account (**mor_2314**)
-  - click on **user icon**
-  - click on **dashboard**
-
-![alt text](https://i.imgur.com/ilqf5lL.png)
-![alt text](https://i.imgur.com/Iq1jFlf.png)
-![alt text](https://i.imgur.com/UnkbCGJ.png)
+[![Contributors over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=Naereen/badges)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=Naereen/badges)
 
 ## Getting Started
 
