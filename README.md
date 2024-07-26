@@ -1,6 +1,5 @@
 <div align="center">
 
-
 <img src="logo.svg" alt="logo" width="300" height="250">
 
 <h1 align="center" >Discord Clone</h1>
@@ -16,14 +15,13 @@
 
   <p align="center">
 
-  **Spectrum Store | A Robust E-commerce Platform Powered by Next.js, TypeScript, and Shadcn**
+  **Discord Clone | A Full-Featured Real Time (Video , Audio , Chat) Application Powered by Next.js, Socket io , LiveKit**
+  This project offers a robust and scalable solution for real-time communication,
+  emulating the core functionalities of Discord with a modern tech stack.
 
-  **That leverages the [Fake Store API](https://fakestoreapi.com), It features an Admin dashboard and JWT auth.**
-
- Designed with a focus on security, it implements best practices for routing and server actions.
     <br />
     <br />
-    <a href="https://discord-clone.vercel.app">View Demo</a>
+    <a href="https://discord-clone-production-e15b.up.railway.app/">View Demo</a>
     .
     <a href="https://github.com/issam-seghir/discord-clone/issues">Report Bug</a>
     .
@@ -52,7 +50,6 @@
 - ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
 ## Features
-
 
 - Real-time messaging using Socket.io
 - Send attachments as messages using UploadThing
@@ -95,7 +92,6 @@
 - 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
 - 🎊 **Responsive Design**
 
-
 ## Note
 
 - you can use any **fakestoreapi** user to login
@@ -111,6 +107,7 @@
 ![alt text](https://i.imgur.com/ilqf5lL.png)
 ![alt text](https://i.imgur.com/Iq1jFlf.png)
 ![alt text](https://i.imgur.com/UnkbCGJ.png)
+
 ## Getting Started
 
 First, run the development server:
@@ -127,6 +124,7 @@ First, run the development server:
    ```sh
    npm install
    ```
+
 3. rename `.env.example` file to `.env`
 
 4. Start the server
@@ -138,8 +136,6 @@ First, run the development server:
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-
 
 ## Deploy on Vercel
 
