@@ -58,40 +58,23 @@
 - 🔒 **Authentication + Google Auth** With **Clerk**
 - 🎉 **Server** **creation** and customization
 - 📱 **Real-time** messaging using **Socket.io**
-- 🎁 **Send** **attachments** as messages using **UploadThing**
-- 🧨 **Delete** & **Edit** messages in **real time** for all users
+- 📳**Websocket** **fallback**: **Polling** with alerts
 - 🚀 **Create** **Text**, **Audio** and **Video** call **Channels**
 - 📨 **Conversation** between members
-- 🎬 **Video** calls between members
-- 🔊 **Audio** calls between members
+- 🎬 **Video** **Calls** between members
+- 🔊 **Audio** **Calls** between members
+---
+- 🎁 **Send** **attachments** as messages using **UploadThing**
+- 🧨 **Delete** & **Edit** messages in **real time** for all users
 - 🔰 **Member management** (**Kick**, Role change **Guest** / **Moderator**)
 - 🔗 **Unique** **invite** **link** **generation** & full working invite system
 - ⛓ **Infinite** **loading** for **messages** in batches of 10 (**@tanstack/query**)
-- 📳**Websocket** **fallback**: **Polling** with alerts
 - 🔍 **Search** **Command Line** Functionality
 - 🎨 **Theme Toggler** (Light /Dark mode)
 - 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
 - 🎊 **Responsive Design**
 
-### Technique
 
-- **Next js 14** Last features
-- **Next js** **Server Actions** + **Axios** + **Zod**
-- **React hook form** + **Validation** with **zod** for both **Client** & **Server**
-- **Authentication** JWT + Cookies  + **Authorization** DATA Layer + **Middleware**
-
-### Main
-
-
-- ✨ **Loading** **animations** & **Skeleton**
-
-- 📊 **Admin Dashboard** with CRUD operatons for prouct , pagination , searching charts
-- 🛡 **Security in mind** : **Authentication** (JWT + Cookies)  & **Authorization** DATA Layer + **Middleware** & **Server actions** with **validation**
-
-
-[![Stargazers over time](https://starchart.cc/Naereen/badges.svg)](https://starchart.cc/Naereen/badges)
-
-[![Contributors over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=Naereen/badges)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=Naereen/badges)
 
 ## Getting Started
 
@@ -146,6 +129,12 @@ Don't forget to give the project a star! Thanks again!
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+
+## State
+
+[![Stargazers over time](https://starchart.cc/issam-seghir/discord-clone.svg)](https://starchart.cc/issam-seghir/discord-clone)
+
 
 ## Support Me
 
