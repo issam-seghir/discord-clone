@@ -133,8 +133,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 ## State
-
-[![Stargazers over time](https://starchart.cc/issam-seghir/discord-clone.svg)](https://starchart.cc/issam-seghir/discord-clone)
+[![Stargazers over time](https://starchart.cc/issam-seghir/discord-clone.svg?variant=adaptive)](https://starchart.cc/issam-seghir/discord-clone)
 
 
 ## Support Me
