@@ -3,6 +3,11 @@ import { UserDetails } from "@/components/user/user-details";
 import { ModeToggle } from "@/components/mode-toggler";
 import { initProfile, getFirstServer } from "@/lib/query";
 import {InitialModel} from "@/components/modals/initial-model";
+
+
+
+
+
 export default async function Home() {
 	const profile = await initProfile();
 	console.log(profile);

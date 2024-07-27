@@ -12,6 +12,18 @@ import "@livekit/components-styles";
 import { Track } from "livekit-client";
 import { useEffect, useState } from "react";
 
+
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Discord Clone | Video Call Room",
+	description: "Video Call Room",
+	openGraph: {
+		type: "website",
+	},
+};
+
 export default function Page() {
 	// TODO: get user input for room and name
 	const room = "quickstart-room";

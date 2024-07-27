@@ -5,6 +5,18 @@ import { getCurrentMember, getCurrentProfile, getOrCreateConversation } from "@/
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { MediaRoom } from "@/components/media-room";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Discord Clone | Conversation",
+	description: "Conversation between members",
+	openGraph: {
+		type: "website",
+	},
+};
+
+
 interface MemberIdPageProps {
 	params: {
 		serverId: string;
