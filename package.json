@@ -13,7 +13,7 @@
 		"seed": "ts-node --transpile-only  prisma/seed.ts"
 	},
 	"dependencies": {
-		"@clerk/nextjs": "^5.1.3",
+		"@clerk/nextjs": "^5.5.2",
 		"@emoji-mart/data": "^1.2.1",
 		"@emoji-mart/react": "^1.1.1",
 		"@hookform/resolvers": "^3.6.0",
