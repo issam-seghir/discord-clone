@@ -20,7 +20,8 @@
   emulating the core functionalities of Discord with a modern tech stack.
     <br />
     <br />
-    <a href="https://discord-clone-production-e15b.up.railway.app/">View Demo</a>
+    <!-- <a href="https://discord-clone-production-e15b.up.railway.app/">View Demo</a>-->
+   <a href="https://discord-clone.koyeb.app">View Demo</a>
     .
     <a href="https://github.com/issam-seghir/discord-clone/issues">Report Bug</a>
     .
